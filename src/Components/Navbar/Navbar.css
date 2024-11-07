@@ -1,0 +1,27 @@
+/* src/components/NavBar.css */
+.navbar {
+    background-color: #007BFF; /* Adjust background color */
+    padding: 10px; /* Padding around the navbar */
+  }
+  
+  .nav-links {
+    list-style: none; /* Remove default list styling */
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: space-around; /* Space links evenly */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .nav-links li {
+    margin: 0 15px; /* Margin between links */
+  }
+  
+  .nav-links a {
+    color: white; /* Link text color */
+    text-decoration: none; /* Remove underline from links */
+    font-weight: bold; /* Bold text */
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  

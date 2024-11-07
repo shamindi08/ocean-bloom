@@ -1,0 +1,23 @@
+/* src/pages/admin/AdminDashboard.css */
+
+.admin-dashboard {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    
+  }
+  
+  .dashboard-section {
+    text-align: center;
+    border-radius: 10px;
+
+  }
+  
+  .icon {
+    color: #1976d2; /* Primary color */
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-button {
+    margin-top: 10px;
+  }
+  

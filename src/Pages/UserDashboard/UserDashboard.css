@@ -1,0 +1,19 @@
+/* UserDashboard.css */
+.user-dashboard {
+    margin-top: 20px;
+  }
+  
+  .dashboard-section {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .icon {
+    color: #1976d2; /* Primary color */
+    margin-bottom: 10px;
+  }
+  
+  .dashboard-button {
+    margin-top: 10px;
+  }
+  
