@@ -42,12 +42,19 @@ const UserDashboard = () => {
   }, [navigate]);
 
   // Handle logout functionality
-  const handleLogout = () => {
-    // Remove the token from localStorage (or sessionStorage)
-    localStorage.removeItem('token');
-    
-    // Optionally, redirect the user to the login page after logout
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.get("http://localhost:5050/api/user/logout", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+  
+      // Clear token from localStorage and navigate to login
+      localStorage.removeItem("token");
+      navigate("/");
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   return (

@@ -274,7 +274,18 @@ app.get("/api/user/verify-token", authenticateToken, (req, res) => {
   // If the token is verified successfully, send a success message
   res.status(200).json({ message: "Token is valid" });
 });
+app.get("/api/user/logout", authenticateToken, async (req, res) => {
+  try {
+    // Optional: Log the logout activity
+    await logUserActivity(req.user.id, "Logout", "User logged out");
 
+    // Clear the client-side token by sending a success response.
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.error("Logout error:", error.message);
+    res.status(500).json({ message: "Server error during logout" });
+  }
+});
 // Start the server
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
