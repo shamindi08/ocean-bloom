@@ -1,12 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
+import './ForgotPassword.css';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState('');
+  const navigate = useNavigate();  
+
+
+  const handleResetPasswordLink = () => {
+    // Navigate to the Reset Password page with the token
+    if (token) {
+      navigate(`/reset-password/${token}`);
+    }
+  };
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
@@ -16,8 +27,15 @@ const ForgotPassword = () => {
 
     try {
       const response = await axios.post('http://localhost:5050/api/forgot-password', { email });
-
-      setMessage('Password reset email has been sent! Check your inbox.');
+  
+      if (response.status === 200) {
+        setMessage('Password reset email has been sent! Check your inbox.');
+        // Do not navigate here, just inform the user that the email was sent successfully
+        const tokenFromBackend = response.data.token; // Make sure the backend response includes this token
+        setToken(tokenFromBackend);
+      } else {
+        setError('Failed to send reset email. Please try again later.');
+      }
     } catch (err) {
       if (err.response && err.response.status === 404) {
         setError('Email not found. Please try again.');
@@ -44,7 +62,6 @@ const ForgotPassword = () => {
           />
         </div>
 
-        {/* Display success or error message */}
         {message && <p className="success-message">{message}</p>}
         {error && <p className="error-message">{error}</p>}
 

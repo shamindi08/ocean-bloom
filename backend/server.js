@@ -80,6 +80,9 @@ app.get("/api/user/profile", authenticateToken, async (req, res) => {
   try {
     const user = await usersCollection.findOne({ _id: new ObjectId(userId) });
     if (!user) return res.status(404).send("User not found");
+
+    await logUserActivity(userId, "Profile View", "User viewed their profile");
+
     res.json({ name: user.name, email: user.email });
   } catch (error) {
     console.error("Error fetching profile:", error.message);
@@ -104,6 +107,8 @@ app.put("/api/user/profile", authenticateToken, async (req, res) => {
       { _id: new ObjectId(userId) },
       { $set: { name: username || user.name, password: hashedPassword } }
     );
+
+    await logUserActivity(userId, "Profile Update", "User updated their profile");
     res.send("Profile updated successfully");
   } catch (error) {
     console.error("Error updating profile:", error.message);
@@ -111,6 +116,91 @@ app.put("/api/user/profile", authenticateToken, async (req, res) => {
   }
 });
 
+// Forgot Password Route - Send Reset Email
+// Forgot Password Route - Send Reset Email
+app.post('/api/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // 1. Check if the email exists in the database and if the user is verified
+    const user = await usersCollection.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'No account with that email found.' });
+    }
+
+    if (!user.isVerified) {
+      return res.status(400).json({ message: 'Email not verified. Please verify your email first.' });
+    }
+
+    // 2. Generate a reset token and expiration time
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenExpiry = Date.now() + 300000; // Token expires in 5 minutes (300000 ms)
+
+    // 3. Update the user's reset token and expiry in the database
+    await usersCollection.updateOne(
+      { email },
+      {
+        $set: { resetPasswordToken: resetToken, resetPasswordExpiry: resetTokenExpiry }
+      }
+    );
+
+    // 4. Generate the reset password link
+    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+
+    // 5. Send the reset password email
+    await transporter.sendMail({
+      to: user.email,
+      from: process.env.EMAIL_USER,
+      subject: 'Password Reset Request',
+      html: `<p>You requested a password reset. Click the link below to reset your password:</p><p><a href="http://localhost:3000/reset-password/${resetToken}">Reset Password</a></p>`
+    });
+    await logUserActivity(user._id, "Password Reset Request", "User requested a password reset");
+    // 6. Respond with success message
+    res.status(200).json({ success: true, message: 'Password reset email has been sent! Check your inbox.' });
+
+  } catch (error) {
+    console.error('Error in forgot-password route:', error);
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
+
+
+
+
+// Reset Password Route - Verify Token and Update Password
+
+
+app.post('/api/reset-password/:token', async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  try {
+    // 1. Find the user with the reset token
+    const user = await usersCollection.findOne({ resetPasswordToken: token });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired reset token.' });
+    }
+
+    // 2. Check if the token is expired
+    if (user.resetPasswordExpiry < Date.now()) {
+      return res.status(400).json({ message: 'Reset token has expired.' });
+    }
+
+    // 3. Update the user's password
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    await usersCollection.updateOne(
+      { email: user.email },
+      { $set: { password: hashedPassword, resetPasswordToken: null, resetPasswordExpiry: null } }
+    );
+    await logUserActivity(user._id, "Password Reset", "User successfully reset their password");
+    // 4. Respond with success
+    res.status(200).json({ message: 'Password reset successfully!' });
+
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(500).json({ message: 'Something went wrong. Please try again later.' });
+  }
+});
 
 
 // Signup route
@@ -265,6 +355,21 @@ app.post("/api/verify-otp", async (req, res) => {
     res.status(500).json({ message: "Server error during OTP verification" });
   }
 });
+// Activity Log Route
+app.get("/api/user/activity-logs", authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const activityLogs = await activityCollection
+      .find({ userId: new ObjectId(userId) })
+      .sort({ timestamp: -1 })
+      .toArray();
+    res.json(activityLogs);
+  } catch (error) {
+    console.error("Error fetching activity logs:", error.message);
+    res.status(500).json({ message: "Failed to fetch activity logs" });
+  }
+});
+
 
 app.get("/api/user/dashboard", authenticateToken, async (req, res) => {
   res.json({ message: "Welcome to the dashboard" });

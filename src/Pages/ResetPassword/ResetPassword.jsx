@@ -1,79 +1,84 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, Navigate } from 'react-router-dom';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 import './ResetPassword.css';
 
 const ResetPassword = () => {
+  const { token } = useParams();  // Extract reset token from URL
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [redirect, setRedirect] = useState(false);  // State to control redirection
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const token = queryParams.get('token');
-  const email = queryParams.get('email');
+  useEffect(() => {
+    if (!token) {
+      setError('No reset token found.');
+    }
+  }, [token]);
 
-  const handleResetPassword = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setMessage('');
 
+    // Basic validation: check if passwords match
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('Passwords do not match!');
       return;
     }
 
-    setLoading(true);
-
     try {
-      const response = await axios.post('http://localhost:5050/api/reset-password', {
-        email,
-        token,
-        password,
-      });
+      // Send the new password along with the reset token to your backend
+      await axios.post(`/api/reset-password/${token}`, { password });
 
-      setMessage('Password reset successfully!');
+      // Handle success
+      setSuccess(true);
+      alert('Password reset successful!');
+
+      // Set the redirect flag to true
+      setTimeout(() => {
+        setRedirect(true);
+      }, 2000);
     } catch (err) {
-      setError('Failed to reset password. Please try again.');
-    } finally {
-      setLoading(false);
+      // Handle error
+      setError(err.response ? err.response.data.message : 'Something went wrong');
     }
   };
 
+  if (redirect) {
+    return <Navigate to="/signin" />;  // Redirect the user to the login page after success
+  }
+
   return (
-    <div className="reset-password-container">
-      <h2>Reset Password</h2>
-      <form onSubmit={handleResetPassword} className="reset-password-form">
-        <div className="input-group">
-          <label htmlFor="password">New Password</label>
+    <div>
+      <h2>Reset Your Password</h2>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {success && <p style={{ color: 'green' }}>Password reset successful. Redirecting...</p>}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="password">New Password:</label>
           <input
             type="password"
             id="password"
+            placeholder="Enter your new password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <div className="input-group">
-          <label htmlFor="confirm-password">Confirm Password</label>
+
+        <div>
+          <label htmlFor="confirmPassword">Confirm New Password:</label>
           <input
             type="password"
-            id="confirm-password"
+            id="confirmPassword"
+            placeholder="Confirm your new password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </div>
 
-        {/* Display success or error message */}
-        {message && <p className="success-message">{message}</p>}
-        {error && <p className="error-message">{error}</p>}
-
-        <button type="submit" className="submit-button" disabled={loading}>
-          {loading ? 'Resetting...' : 'Reset Password'}
-        </button>
+        <button type="submit">Reset Password</button>
       </form>
     </div>
   );

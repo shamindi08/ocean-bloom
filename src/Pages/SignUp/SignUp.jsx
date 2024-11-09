@@ -51,7 +51,7 @@ const SignUp = () => {
                 setEmail('');
                 setPasswordStrength(null);
                 
-                navigate('/');
+                navigate('/signin');
             } else {
                 setError(response.data.message || 'Something went wrong, please try again.');
             }
@@ -81,7 +81,7 @@ const SignUp = () => {
 
     // Redirect to login page
     const handleLoginRedirect = () => {
-        navigate('/');
+        navigate('/signin');
     };
 
     return (

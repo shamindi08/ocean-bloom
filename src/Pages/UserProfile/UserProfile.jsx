@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './UserProfile.css'
 
 const UserProfile = () => {
     // Initialize state with empty strings to prevent uncontrolled-to-controlled warning

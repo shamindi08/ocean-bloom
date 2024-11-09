@@ -1,0 +1,50 @@
+/* src/components/Home.css */
+
+.home-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #f0f8ff; /* Light ocean background color */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .home-title {
+    font-size: 48px;
+    color: #004d61; /* Ocean-inspired color */
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  
+  .home-subtitle {
+    font-size: 20px;
+    color: #333;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  
+  .button-container {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .home-button {
+    background-color: #008CBA; /* Blue color for the buttons */
+    color: white;
+    font-size: 18px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .home-button:hover {
+    background-color: #005f6b; /* Darker blue on hover */
+    transform: scale(1.05); /* Slight scale up on hover */
+  }
+  

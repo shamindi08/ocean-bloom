@@ -72,20 +72,7 @@ const SignIn = () => {
   };
 
   const handleForgotPassword = () => {
-    const emailPrompt = prompt('Please enter your email for password reset:');
-    if (emailPrompt && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailPrompt)) {
-      axios.post('http://localhost:5050/api/forgot-password', { email: emailPrompt })
-        .then(() => {
-          alert('A password reset link has been sent to your email.');
-        })
-        .catch((err) => {
-          alert(err.response && err.response.status === 404
-            ? 'No account with that email found.'
-            : 'Error sending password reset email. Please try again.');
-        });
-    } else {
-      alert('Please enter a valid email address.');
-    }
+    navigate('/forgot-password');
   };
 
   const handleRegisterRedirect = () => {

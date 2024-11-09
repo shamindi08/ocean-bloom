@@ -15,8 +15,8 @@ import ForgotPassword from './Pages/ForgotPassword/ForgotPassword';
 import AdminSignIn from './Pages/AdminSignIn/AdminSignIn';
 import AdminSignUp from './Pages/AdminSignUP/AdminSignUp';
 import UserProfile from './Pages/UserProfile/UserProfile';
-
-
+import Home from './Pages/Home/Home';
+import ActivityLogs from './Pages/ActivityLogs/ActivityLogs';
 
 const App = () => {
   return (
@@ -25,7 +25,7 @@ const App = () => {
       <Routes>
         
         <Route path="/signup" element={<SignUp />} /> {/* Sign Up route */}
-        <Route path="/" element={<SignIn />} /> {/* Sign In route */}
+        <Route path="/signin" element={<SignIn />} /> {/* Sign In route */}
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
         
         <Route path="/new-arrivals" element={<div>New Arrivals Page</div>} />
@@ -33,12 +33,13 @@ const App = () => {
         <Route path="/women" element={<div>Women's Section</div>} />
         <Route path="/customers" element={<Customers/>} /> 
         <Route path="/customer-dashboard" element={<UserDashboard/>} /> 
-        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/admin-signin" element={<AdminSignIn />} />
         <Route path="/admin-signup" element={<AdminSignUp />} />
         <Route path="/profile" element={<UserProfile />} />
-       
+        <Route path="/" element={<Home />} />
+        <Route path="/activity-logs" element={<ActivityLogs />} />
       </Routes>
     </Router>
   );

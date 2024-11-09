@@ -1,19 +1,98 @@
 /* UserDashboard.css */
+
+/* Main container styling */
 .user-dashboard {
-    margin-top: 20px;
+  background: linear-gradient(135deg, #C5D3E8, #A6AEBF);
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Title styling */
+.user-dashboard h1 {
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+/* Grid and Paper section styling */
+.dashboard-section {
+  background-color: #FFF8DE;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.dashboard-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Icon styling */
+.icon {
+  color: #A6AEBF;
+  margin-bottom: 0.5rem;
+  font-size: 3rem;
+}
+
+/* Section title styling */
+.dashboard-section h2 {
+  color: #333333;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Button styling */
+.dashboard-button {
+  background-color: #A6AEBF;
+  color: #FFF8DE;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.dashboard-button:hover {
+  background-color: #D0E8C5;
+  color: #333333;
+}
+
+.dashboard-button:disabled {
+  background-color: #C5D3E8;
+  cursor: not-allowed;
+}
+
+/* Logout button styling */
+button.dashboard-button[color="secondary"] {
+  background-color: #FF4D4F;
+  color: white;
+}
+
+button.dashboard-button[color="secondary"]:hover {
+  background-color: #D04648;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .user-dashboard h1 {
+      font-size: 2rem;
   }
-  
+
   .dashboard-section {
-    text-align: center;
-    padding: 20px;
+      padding: 1.5rem;
   }
-  
-  .icon {
-    color: #1976d2; /* Primary color */
-    margin-bottom: 10px;
-  }
-  
+
   .dashboard-button {
-    margin-top: 10px;
+      font-size: 0.9rem;
   }
-  
+
+  .icon {
+      font-size: 2.5rem;
+  }
+}
