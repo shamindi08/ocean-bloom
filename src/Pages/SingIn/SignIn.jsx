@@ -24,7 +24,7 @@ const SignIn = () => {
         password,
       });
 
-      // Check if OTP is sent, setting up temporary OTP step
+      
       if (response.data === "OTP sent to your email. Please verify.") {
         setIsOtpSent(true);
         setSuccessMessage('OTP sent to your email. Please enter it to continue.');
@@ -50,7 +50,7 @@ const SignIn = () => {
         otp,
       });
 
-      // If OTP is verified and token is received
+      
       if (response.data.token) {
         // Store the authentication token
         localStorage.setItem('token', response.data.token);

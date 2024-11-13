@@ -20,32 +20,32 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation: check if passwords match
+   
     if (password !== confirmPassword) {
       setError('Passwords do not match!');
       return;
     }
 
     try {
-      // Send the new password along with the reset token to your backend
+      
       await axios.post(`/api/reset-password/${token}`, { password });
 
-      // Handle success
+  
       setSuccess(true);
       alert('Password reset successful!');
 
-      // Set the redirect flag to true
+   
       setTimeout(() => {
         setRedirect(true);
       }, 2000);
     } catch (err) {
-      // Handle error
+    
       setError(err.response ? err.response.data.message : 'Something went wrong');
     }
   };
 
   if (redirect) {
-    return <Navigate to="/signin" />;  // Redirect the user to the login page after success
+    return <Navigate to="/signin" />;  
   }
 
   return (

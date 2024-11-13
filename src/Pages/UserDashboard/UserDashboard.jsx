@@ -39,7 +39,7 @@ const UserDashboard = () => {
     const fetchActivityLogs = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await axios.get('http://localhost:5050/api/user/activity-log', {
+        const response = await axios.get('http://localhost:5050/api/user/activity-logs', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setActivityLogs(response.data);

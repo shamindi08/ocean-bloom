@@ -316,36 +316,36 @@ app.post("/api/signin", async (req, res) => {
 app.post("/api/verify-otp", async (req, res) => {
   const { email, otp } = req.body;
 
-  // Validate the request body
+  
   if (!email || !otp) {
     return res.status(400).json({ message: "Email and OTP are required." });
   }
 
   try {
-    // Find the user by email
+    
     const user = await usersCollection.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found." });
     }
 
-    // Check if OTP is valid and not expired
+    
     if (!user.otp || Date.now() > user.otpExpiry || user.otp !== otp) {
       return res.status(400).json({ message: "Invalid or expired OTP." });
     }
 
-    // Clear OTP fields after successful verification
+    
     await usersCollection.updateOne(
       { email },
       { $unset: { otp: "", otpExpiry: "" } }
     );
 
-    // Create a JWT token
+    
     const token = jwt.sign({ id: user._id, role: "user" }, JWT_SECRET, { expiresIn: "1h" });
 
-    // Log user activity
+    
     await logUserActivity(user._id, "Login", "User logged in with OTP");
 
-    // Respond with the success message and JWT token
+    
     res.json({
       message: "OTP verified successfully",
       token: token,
@@ -391,6 +391,11 @@ app.get("/api/user/logout", authenticateToken, async (req, res) => {
     res.status(500).json({ message: "Server error during logout" });
   }
 });
+
+
+
+
+
 // Start the server
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
