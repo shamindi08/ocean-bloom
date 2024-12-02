@@ -116,7 +116,7 @@ app.put("/api/user/profile", authenticateToken, async (req, res) => {
   }
 });
 
-// Forgot Password Route - Send Reset Email
+
 // Forgot Password Route - Send Reset Email
 app.post('/api/forgot-password', async (req, res) => {
   const { email } = req.body;

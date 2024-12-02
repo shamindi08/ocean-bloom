@@ -1,5 +1,3 @@
-// src/components/ActivityLogs.js
-
 import React, { useEffect, useState } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";

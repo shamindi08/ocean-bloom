@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './UserProfile.css'
 
 const UserProfile = () => {
-    // Initialize state with empty strings to prevent uncontrolled-to-controlled warning
+    // Initialize state with empty strings to prevent uncontrolled-to-controlled component error
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');

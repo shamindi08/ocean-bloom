@@ -23,7 +23,7 @@ const SignIn = () => {
   };
 
   const validateOtp = (otp) => {
-    return otp.length === 6; // Assuming OTP is 6 digits.
+    return otp.length === 6; // Assuming OTP is 6 digits
   };
 
   const handleSignIn = async (e) => {
