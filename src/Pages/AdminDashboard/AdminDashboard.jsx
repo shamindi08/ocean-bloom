@@ -6,7 +6,7 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Clear any stored tokens and redirect to login
+    // Clear any store tokens and redirect to login
     localStorage.removeItem('token');
     navigate('/signin');
   };

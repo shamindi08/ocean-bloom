@@ -14,7 +14,7 @@ const Customers = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [formMode, setFormMode] = useState(''); // 'edit' or 'add'
 
-  // Fetch customers from the database on component mount
+  // Fetch customers from the database on component
   useEffect(() => {
     const fetchCustomers = async () => {
       try {

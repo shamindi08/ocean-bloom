@@ -20,7 +20,7 @@ const SignUp = () => {
         e.preventDefault();
         setError('');
 
-        // Check if all fields are filled
+        // Check if all are filled
         if (!username || !password || !email) {
             setError('All fields are required.');
             return;

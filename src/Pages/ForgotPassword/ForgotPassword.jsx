@@ -30,7 +30,7 @@ const ForgotPassword = () => {
   
       if (response.status === 200) {
         setMessage('Password reset email has been sent! Check your inbox.');
-        // Do not navigate here, just inform the user that the email was sent successfully
+       
         const tokenFromBackend = response.data.token; // Make sure the backend response includes this token
         setToken(tokenFromBackend);
       } else {

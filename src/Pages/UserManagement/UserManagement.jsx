@@ -22,7 +22,7 @@ const UserManagement = () => {
       console.error('Error fetching users:', error);
     }
   };
-
+//Handle delete user
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');

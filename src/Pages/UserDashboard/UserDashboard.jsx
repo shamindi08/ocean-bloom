@@ -82,7 +82,7 @@ const UserDashboard = () => {
             </Box>
           </Paper>
         </Grid>
-        {/* Other sections (Orders, Settings, etc.) */}
+        
         
         {/* Activity Log Section */}
         <Grid item xs={12} md={8}>
