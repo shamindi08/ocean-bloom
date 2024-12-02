@@ -312,43 +312,41 @@ app.post("/api/signin", async (req, res) => {
 });
 
 // OTP verification route
-// OTP verification route
 app.post("/api/verify-otp", async (req, res) => {
   const { email, otp } = req.body;
 
-  // Validate the request body
   if (!email || !otp) {
     return res.status(400).json({ message: "Email and OTP are required." });
   }
 
   try {
-    // Find the user by email
     const user = await usersCollection.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found." });
     }
 
-    // Check if OTP is valid and not expired
     if (!user.otp || Date.now() > user.otpExpiry || user.otp !== otp) {
       return res.status(400).json({ message: "Invalid or expired OTP." });
     }
 
-    // Clear OTP fields after successful verification
     await usersCollection.updateOne(
       { email },
       { $unset: { otp: "", otpExpiry: "" } }
     );
 
-    // Create a JWT token
-    const token = jwt.sign({ id: user._id, role: "user" }, JWT_SECRET, { expiresIn: "1h" });
+    const isAdmin = email === "shamindigovipothage2021@gmail.com";
+    const token = jwt.sign(
+      { id: user._id, role: isAdmin ? "admin" : "user" },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
-    // Log user activity
     await logUserActivity(user._id, "Login", "User logged in with OTP");
 
-    // Respond with the success message and JWT token
     res.json({
       message: "OTP verified successfully",
       token: token,
+      role: isAdmin ? "admin" : "user", // Add role information to the response
     });
   } catch (error) {
     console.error("Error verifying OTP:", error.message);
@@ -391,7 +389,42 @@ app.get("/api/user/logout", authenticateToken, async (req, res) => {
     res.status(500).json({ message: "Server error during logout" });
   }
 });
-// Start the server
+
+
+// Get all users (exclude admin user with email shamindigovipothage2021@gmail.com)
+app.get('/api/admin/users', authenticateToken, async (req, res) => {
+  try {
+    // Fetch all users except the admin
+    const users = await usersCollection.find({ email: { $ne: 'shamindigovipothage2021@gmail.com' } }).toArray();
+    res.json(users);
+  } catch (error) {
+    console.error('Error fetching users:', error.message);
+    res.status(500).json({ message: 'Server error while fetching users' });
+  }
+});
+
+
+// Delete user by ID
+app.delete('/api/admin/users/:id', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Delete user without checking roles
+    const result = await usersCollection.deleteOne({ _id: new ObjectId(id) });
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Optional: Log admin activity
+    await logUserActivity(req.user.id, 'Delete User', `Deleted user with ID: ${id}`);
+
+    res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error.message);
+    res.status(500).json({ message: 'Server error while deleting user' });
+  }
+});
+
 const PORT = process.env.PORT || 5050;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

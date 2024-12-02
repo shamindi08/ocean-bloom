@@ -17,6 +17,7 @@ import AdminSignUp from './Pages/AdminSignUP/AdminSignUp';
 import UserProfile from './Pages/UserProfile/UserProfile';
 import Home from './Pages/Home/Home';
 import ActivityLogs from './Pages/ActivityLogs/ActivityLogs';
+import UserManagement from './Pages/UserManagement/UserManagement';
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/" element={<Home />} />
         <Route path="/activity-logs" element={<ActivityLogs />} />
+        <Route path="/admin/users" element={<UserManagement />} />
       </Routes>
     </Router>
   );

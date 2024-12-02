@@ -1,50 +1,113 @@
-/* src/components/Home.css */
-
+/* Home Container */
 .home-container {
-    text-align: center;
-    padding: 50px;
-    background-color: #f0f8ff; /* Light ocean background color */
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #00aaff, #004d61); /* Oceanic gradient background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Title */
+.home-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Text shadow for better legibility */
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-in-out; /* Fade-in animation */
+}
+
+/* Subtitle */
+.home-subtitle {
+  font-size: 1.3rem;
+  color: #fff;
+  margin-top: 10px;
+  font-style: italic;
+  font-weight: 300;
+  max-width: 80%;
+  margin-bottom: 30px;
+  animation: fadeIn 1.5s ease-in-out; /* Fade-in animation */
+}
+
+/* Button Container */
+.button-container {
+  margin-top: 40px;
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  animation: slideUp 1s ease-in-out; /* Slide-up animation for buttons */
+}
+
+/* Button Styling */
+.home-button {
+  background-color: #00bcd4; /* Light ocean blue */
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  font-weight: 600;
+  min-width: 180px;
+}
+
+/* Button Hover Effect */
+.home-button:hover {
+  background-color: #0097a7; /* Darker blue on hover */
+  transform: scale(1.1); /* Slight scale up */
+  box-shadow: 0 5px 15px rgba(0, 155, 167, 0.4); /* Soft shadow effect */
+}
+
+/* Button Focus Effect */
+.home-button:focus {
+  outline: none;
+  border: 2px solid #004d61; /* Outline effect on focus */
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
   .home-title {
-    font-size: 48px;
-    color: #004d61; /* Ocean-inspired color */
-    font-weight: bold;
-    letter-spacing: 2px;
+    font-size: 3rem; /* Smaller font size on mobile */
   }
-  
+
   .home-subtitle {
-    font-size: 20px;
-    color: #333;
-    margin-top: 10px;
-    font-style: italic;
+    font-size: 1rem;
+    max-width: 90%;
   }
-  
-  .button-container {
-    margin-top: 30px;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-  }
-  
+
   .home-button {
-    background-color: #008CBA; /* Blue color for the buttons */
-    color: white;
-    font-size: 18px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1rem;
+    padding: 12px 30px;
+    min-width: 150px;
   }
-  
-  .home-button:hover {
-    background-color: #005f6b; /* Darker blue on hover */
-    transform: scale(1.05); /* Slight scale up on hover */
-  }
-  
+}
