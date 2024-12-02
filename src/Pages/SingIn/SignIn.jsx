@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import validator from 'validator';
 import './SignIn.css';
 
 const SignIn = () => {
@@ -13,10 +14,35 @@ const SignIn = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
+  const validateEmail = (email) => {
+    return validator.isEmail(email); // Validate email format using validator library
+  };
+
+  const validatePassword = (password) => {
+    return password.length >= 8; // You can expand this to include other criteria if needed.
+  };
+
+  const validateOtp = (otp) => {
+    return otp.length === 6; // Assuming OTP is 6 digits.
+  };
+
   const handleSignIn = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    // Validate inputs
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      setLoading(false);
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setError('Password must be at least 8 characters long.');
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post('http://localhost:5050/api/signin', {
@@ -24,7 +50,6 @@ const SignIn = () => {
         password,
       });
 
-      
       if (response.data === "OTP sent to your email. Please verify.") {
         setIsOtpSent(true);
         setSuccessMessage('OTP sent to your email. Please enter it to continue.');
@@ -43,24 +68,28 @@ const SignIn = () => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
+  
+    if (!validateOtp(otp)) {
+      setError('Please enter a valid OTP.');
+      setLoading(false);
+      return;
+    }
+  
     try {
       const response = await axios.post('http://localhost:5050/api/verify-otp', {
         email,
         otp,
       });
-
-      
+  
       if (response.data.token) {
-        // Store the authentication token
         localStorage.setItem('token', response.data.token);
         setSuccessMessage('OTP verified successfully.');
-
-        // Assuming user data is part of the response, such as user details
-        const userData = response.data.user; // This assumes the user data is in the response
-
-        // Pass user data via navigate state
-        navigate('/customer-dashboard', { state: { userData } });
+  
+        if (email === 'shamindigovipothage2021@gmail.com') {
+          navigate('/admin-dashboard');
+        } else {
+          navigate('/customer-dashboard');
+        }
       } else {
         setError('OTP verification failed. Please try again.');
       }
@@ -70,6 +99,7 @@ const SignIn = () => {
       setLoading(false);
     }
   };
+  
 
   const handleForgotPassword = () => {
     navigate('/forgot-password');
@@ -107,7 +137,6 @@ const SignIn = () => {
             />
           </div>
 
-          {/* Display error message */}
           {error && <p className="error-message">{error}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
 
@@ -131,7 +160,6 @@ const SignIn = () => {
             />
           </div>
 
-          {/* Display error message */}
           {error && <p className="error-message">{error}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
 

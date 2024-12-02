@@ -1,5 +1,3 @@
-/* SignUp.css */
-
 /* Main container styling */
 .signup-container {
   display: flex;
@@ -7,80 +5,88 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #C5D3E8, #A6AEBF);
-  color: #333333;
-  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #00aaff, #004d61); /* Ocean-inspired gradient */
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
   padding: 20px;
+  animation: fadeIn 1s ease-in-out; /* Animation for fading in */
 }
 
 /* Title styling */
 .signup-container h2 {
-  font-size: 2rem;
-  color: #333333;
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
-  font-weight: bold;
+  color: #fff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Text shadow for better readability */
+  letter-spacing: 1.5px;
+  animation: slideUp 1s ease-in-out; /* Slide-up animation for title */
 }
 
 /* Form container styling */
 .signup-form {
-  background-color: #FFF8DE;
-  border-radius: 10px;
-  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 2.5rem;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1s ease-in-out; /* Fade-in animation for form */
 }
 
 /* Input group styling */
 .input-group {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
 }
 
 .input-group label {
+  font-size: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333333;
+  color: #333;
 }
 
 .input-group input {
-  padding: 0.8rem;
-  border-radius: 5px;
+  padding: 0.9rem;
+  border-radius: 8px;
   border: 1px solid #A6AEBF;
   font-size: 1rem;
   width: 100%;
   outline: none;
   transition: border 0.3s, box-shadow 0.3s;
+  background-color: #f9f9f9; /* Slight off-white background for inputs */
 }
 
 .input-group input:focus {
-  border-color: #D0E8C5;
-  box-shadow: 0 0 5px rgba(208, 232, 197, 0.5);
+  border-color: #00aaff;
+  box-shadow: 0 0 8px rgba(0, 170, 255, 0.3);
 }
 
 /* Password strength indicator */
 .password-strength p {
   font-size: 0.9rem;
   margin-top: 0.3rem;
-  color: #666666;
+  color: #666;
 }
 
 /* Button styling */
 button[type="submit"] {
-  background-color: #A6AEBF;
-  color: #FFF8DE;
-  padding: 0.8rem;
+  background-color: #00aaff; /* Ocean blue */
+  color: #fff;
+  padding: 0.9rem;
   width: 100%;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s, transform 0.1s;
-  margin-top: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 1.5rem;
 }
 
 button[type="submit"]:hover {
-  background-color: #D0E8C5;
+  background-color: #008cba; /* Darker shade of blue on hover */
+  transform: scale(1.05); /* Slight scaling effect on hover */
 }
 
 button[type="submit"]:disabled {
@@ -90,32 +96,76 @@ button[type="submit"]:disabled {
 
 /* Error message styling */
 .error-message {
-  color: #FF4D4F;
+  color: #ff4d4f;
   font-size: 0.9rem;
   margin-top: 0.5rem;
+  text-align: center;
 }
 
 /* Login redirect link styling */
 .login-link {
-  color: #333333;
+  color: #fff;
   font-weight: 500;
   cursor: pointer;
   text-decoration: underline;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
 }
 
-/* Responsive styling */
-@media (max-width: 500px) {
+.login-link:hover {
+  color: #00aaff; /* Highlight color on hover */
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
   .signup-form {
-      width: 90%;
-      padding: 1.5rem;
+    width: 90%;
+    padding: 2rem;
   }
 
   .signup-container h2 {
-      font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   button[type="submit"] {
-      font-size: 0.9rem;
+    font-size: 1rem;
+  }
+
+  .input-group input {
+    padding: 0.8rem;
   }
 }

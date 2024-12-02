@@ -1,142 +1,171 @@
-/* SignIn.css */
-
-/* Container Styling */
+/* Main container styling */
 .signin-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #C5D3E8, #A6AEBF); /* Soft gradient background */
-  color: #333333;
-  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #00aaff, #004d61); /* Ocean-inspired gradient */
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
   padding: 20px;
+  animation: fadeIn 1s ease-in-out; /* Animation for fading in */
 }
 
-/* Title */
+/* Title styling */
 .signin-container h2 {
-  font-size: 2rem;
-  color: #333333;
+  font-size: 2.5rem;
+  font-weight: 700;
   margin-bottom: 1.5rem;
-  font-weight: bold;
+  color: #fff;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Text shadow for better readability */
+  letter-spacing: 1.5px;
+  animation: slideUp 1s ease-in-out; /* Slide-up animation for title */
 }
 
-/* Form Styling */
-.signin-form,
-.otp-form {
-  background: #FFF8DE;
-  border-radius: 10px;
-  padding: 2rem;
+/* Form container styling */
+.signin-form, .otp-form {
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 2.5rem;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #333333;
+  max-width: 450px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 1s ease-in-out; /* Fade-in animation for form */
 }
 
-/* Input Group */
+/* Input group styling */
 .input-group {
-  margin-bottom: 1.2rem;
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 1.5rem;
 }
 
 .input-group label {
+  font-size: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #333333;
+  color: #333;
 }
 
 .input-group input {
-  padding: 0.8rem;
-  border-radius: 5px;
+  padding: 0.9rem;
+  border-radius: 8px;
   border: 1px solid #A6AEBF;
   font-size: 1rem;
+  width: 100%;
   outline: none;
   transition: border 0.3s, box-shadow 0.3s;
+  background-color: #f9f9f9; /* Slight off-white background for inputs */
 }
 
 .input-group input:focus {
-  border-color: #D0E8C5;
-  box-shadow: 0 0 5px rgba(208, 232, 197, 0.6);
+  border-color: #00aaff;
+  box-shadow: 0 0 8px rgba(0, 170, 255, 0.3);
 }
 
-/* Button Styling */
-.signin-button,
-.otp-button,
-.forgot-button,
-.register-here-button {
-  background: #A6AEBF;
-  color: #FFF8DE;
-  padding: 0.8rem;
+/* Button styling */
+button[type="submit"], .forgot-button, .register-here-button {
+  background-color: #00aaff; /* Ocean blue */
+  color: #fff;
+  padding: 0.9rem;
   width: 100%;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s, transform 0.1s;
-  margin-top: 1rem;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 1.5rem;
 }
 
-.signin-button:hover,
-.otp-button:hover,
-.forgot-button:hover,
-.register-here-button:hover {
-  background: #D0E8C5;
+button[type="submit"]:hover, .forgot-button:hover, .register-here-button:hover {
+  background-color: #008cba; /* Darker shade of blue on hover */
+  transform: scale(1.05); /* Slight scaling effect on hover */
 }
 
-.signin-button:disabled,
-.otp-button:disabled {
-  background: #C5D3E8;
+button[type="submit"]:disabled, .forgot-button:disabled, .register-here-button:disabled {
+  background-color: #C5D3E8;
   cursor: not-allowed;
 }
 
-/* Success and Error Messages */
+/* Success message styling */
 .success-message {
-  color: #D0E8C5;
+  color: #28a745;
   font-size: 0.9rem;
   margin-top: 0.5rem;
-}
-
-.error-message {
-  color: #FF4D4F;
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-}
-
-/* Forgot Password and Register Link */
-.forgot-button {
-  background: none;
-  color: #333333;
-  font-weight: 500;
-  cursor: pointer;
   text-align: center;
-  margin-top: 1rem;
-  padding: 0;
-  text-decoration: underline;
 }
 
+/* Error message styling */
+.error-message {
+  color: #ff4d4f;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+/* Link button styling */
 .register-here-button {
-  background: none;
-  color: #333333;
-  font-weight: 600;
-  cursor: pointer;
+  background-color: transparent;
+  color: #fff;
   text-decoration: underline;
-  padding: 0;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.register-here-button:hover {
+  color: #00aaff; /* Highlight color on hover */
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive Design */
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .signin-form, .otp-form {
-      width: 90%;
-      padding: 1.5rem;
+    width: 90%;
+    padding: 2rem;
   }
 
   .signin-container h2 {
-      font-size: 1.8rem;
+    font-size: 2rem;
   }
 
-  .signin-button, .otp-button {
-      font-size: 0.9rem;
+  button[type="submit"], .forgot-button, .register-here-button {
+    font-size: 1rem;
+  }
+
+  .input-group input {
+    padding: 0.8rem;
   }
 }
